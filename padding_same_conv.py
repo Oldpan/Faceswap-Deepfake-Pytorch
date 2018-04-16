@@ -1,3 +1,7 @@
+# modify con2d function to use same padding
+# code referd to @famssa in 'https://github.com/pytorch/pytorch/issues/3867'
+# and tensorflow source code
+
 import torch.utils.data
 from torch.nn import functional as F
 
@@ -82,7 +86,6 @@ class Conv2d(_ConvNd):
                         self.padding, self.dilation, self.groups)
 
 
-# code from @famssa in 'https://github.com/pytorch/pytorch/issues/3867'
 # custom con2d, because pytorch don't have "padding='same'" option.
 def conv2d_same_padding(input, weight, bias=None, stride=1, padding=1, dilation=1, groups=1):
 
