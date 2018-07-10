@@ -4,7 +4,8 @@ import os
 
 
 def get_image_paths(directory):
-    return [x.path for x in os.scandir(directory) if x.name.endswith(".jpg") or x.name.endswith(".png")]
+    return [x.path for x in os.scandir(directory) if x.name.endswith(".jpg") or x.name.endswith(".png")
+            or x.name.endswith(".JPG")]
 
 
 def load_images(image_paths, convert=None):

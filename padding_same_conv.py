@@ -108,3 +108,4 @@ def conv2d_same_padding(input, weight, bias=None, stride=1, padding=1, dilation=
     return F.conv2d(input, weight, bias, stride,
                   padding=(padding_rows // 2, padding_cols // 2),
                   dilation=dilation, groups=groups)
+

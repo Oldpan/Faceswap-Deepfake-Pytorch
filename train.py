@@ -12,7 +12,6 @@ import torch
 
 import torch.utils.data
 from torch import nn, optim
-from torch.autograd import Variable
 from torch.nn import functional as F
 import torch.backends.cudnn as cudnn
 
@@ -66,7 +65,7 @@ else:
     print('===> Start from scratch')
 
 if args.cuda:
-    model.cuda()
+    device = torch.device('cuda:0')
     cudnn.benchmark = True
 
 criterion = nn.L1Loss()
@@ -95,27 +94,26 @@ if __name__ == "__main__":
         warped_B, target_B = toTensor(warped_B), toTensor(target_B)
 
         if args.cuda:
-            warped_A = warped_A.cuda()
-            target_A = target_A.cuda()
-            warped_B = warped_B.cuda()
-            target_B = target_B.cuda()
-
-        warped_A, target_A, warped_B, target_B = Variable(warped_A.float()), Variable(target_A.float()), \
-                                                 Variable(warped_B.float()), Variable(target_B.float())
+            warped_A = warped_A.to(device).float()
+            target_A = target_A.to(device).float()
+            warped_B = warped_B.to(device).float()
+            target_B = target_B.to(device).float()
 
         optimizer_1.zero_grad()
         optimizer_2.zero_grad()
 
+        model.to(device)
         warped_A = model(warped_A, 'A')
         warped_B = model(warped_B, 'B')
 
         loss1 = criterion(warped_A, target_A)
         loss2 = criterion(warped_B, target_B)
+        loss = loss1.item() + loss2.item()
         loss1.backward()
         loss2.backward()
         optimizer_1.step()
         optimizer_2.step()
-        print('epoch: {}, lossA:{}, lossB:{}'.format(epoch, loss1.data[0], loss2.data[0]))
+        print('epoch: {}, lossA:{}, lossB:{}'.format(epoch, loss1.item(), loss2.item()))
 
         if epoch % args.log_interval == 0:
 
