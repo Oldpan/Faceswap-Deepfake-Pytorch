@@ -33,8 +33,11 @@ parser.add_argument('--log-interval', type=int, default=100, metavar='N',
 
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
+
 if args.cuda is True:
     print('===> Using GPU to train')
+    device = torch.device('cuda:0')
+    cudnn.benchmark = True
 else:
     print('===> Using CPU to train')
 
@@ -49,7 +52,7 @@ images_A = load_images(images_A) / 255.0
 images_B = load_images(images_B) / 255.0
 images_A += images_B.mean(axis=(0, 1, 2)) - images_A.mean(axis=(0, 1, 2))
 
-model = Autoencoder()
+model = Autoencoder().to(device)
 
 print('===> Try resume from checkpoint')
 if os.path.isdir('checkpoint'):
@@ -64,9 +67,6 @@ else:
     start_epoch = 0
     print('===> Start from scratch')
 
-if args.cuda:
-    device = torch.device('cuda:0')
-    cudnn.benchmark = True
 
 criterion = nn.L1Loss()
 optimizer_1 = optim.Adam([{'params': model.encoder.parameters()},
@@ -102,7 +102,6 @@ if __name__ == "__main__":
         optimizer_1.zero_grad()
         optimizer_2.zero_grad()
 
-        model.to(device)
         warped_A = model(warped_A, 'A')
         warped_B = model(warped_B, 'B')
 
