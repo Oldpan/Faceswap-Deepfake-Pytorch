@@ -14,9 +14,9 @@ https://space.oldpan.me/f/cccac1136338407797cb/?dl=1
 ## Requirement:
 ```
 Python == 3.6
-pytorch <= 0.4.0
+pytorch <= 0.4.1
 ```
-pytorch-v0.4.0 is supported.
+pytorch-v0.4.1 is supported.
  You need a modern GPU and CUDA support for better performance.
 
 ## How to run:
