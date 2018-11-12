@@ -8,8 +8,7 @@ This is pytorch version compared with https://github.com/joshua-wu/deepfakes_fac
 
 #### Source code you can download directly from the github page.
 ### Source code,training images and trained model(~300MB):
-https://space.oldpan.me/f/cccac1136338407797cb/?dl=1
-
+https://pan.baidu.com/s/197RIMB_Po96RZNFzV-wqjA    PW : z4wa 
 
 ## Requirement:
 ```
