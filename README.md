@@ -15,7 +15,7 @@ https://pan.baidu.com/s/197RIMB_Po96RZNFzV-wqjA    PW : z4wa
 Python == 3.6
 pytorch >= 0.4.0
 ```
-pytorch-1.0-pre is supported.
+pytorch-1.0 is supported.
  You need a modern GPU and CUDA support for better performance.
 
 ## How to run:
